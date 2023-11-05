@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ffmpeg = "*"
+pydub = "*"
+vosk = "*"
+torch = "*"
+transformers = "==4.16.2"
+pyttsx3 = "*"
+gtts = "*"
+speechrecognition = "*"
+pyaudio = "*"
+moviepy = "*"
+imageio = {extras = ["ffmpeg"], version = "*"}
+python-magic = "*"
+pillow = "==9.5.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
