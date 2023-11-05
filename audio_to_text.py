@@ -9,8 +9,10 @@ SetLogLevel(0)
 
 # Проверяем наличие модели
 if not os.path.exists("model"):
-    print ("Please download the model from https://alphacephei.com/vosk/models and unpack as 'model' in the current folder.")
-    exit (1)
+    print("Please download the model from \
+        https://alphacephei.com/vosk/models\
+            and unpack as 'model' in the current folder.")
+    exit(1)
 
 # Устанавливаем Frame Rate
 FRAME_RATE = 44100
@@ -25,6 +27,7 @@ audio = AudioSegment.from_wav('files/Song_2.wav')
 audio = audio.set_channels(CHANNELS)
 audio = audio.set_frame_rate(FRAME_RATE)
 
+# Воспроизводим аудио
 play(audio)
 
 # Преобразуем аудио в бинарный формат
@@ -43,7 +46,6 @@ print(text)
 # Добавляем пунктуацию (работает через стороннее API, найти другой вариант )
 # try:
 #     cased = subprocess.check_output('python3 recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
-# except subprocess.CalledProcessError as e:
 #     raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
 
 # Записываем результат в файл "data.txt"

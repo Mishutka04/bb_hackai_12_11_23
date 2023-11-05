@@ -17,6 +17,7 @@ moviepy = "*"
 imageio = {extras = ["ffmpeg"], version = "*"}
 python-magic = "*"
 pillow = "==9.5.0"
+flake8 = "*"
 
 [dev-packages]
 
