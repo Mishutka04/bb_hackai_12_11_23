@@ -10,4 +10,6 @@ pipenv shell
 
 ## PEP8
 
-### `flake8`
+```shell script
+flake8
+```
