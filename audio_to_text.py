@@ -7,8 +7,9 @@ import json
 
 SetLogLevel(0)
 
-def voice_to_text(path_to_file:str):
-    
+
+def voice_to_text(audio_file: str):
+
     try:
         os.mkdir("files")
     except FileExistsError:
@@ -30,7 +31,7 @@ def voice_to_text(path_to_file:str):
     rec.SetWords(True)
 
     # Используя библиотеку pydub делаем предобработку аудио
-    audio = AudioSegment.from_wav(path_to_file)
+    audio = AudioSegment.from_wav(audio_file)
     audio = audio.set_channels(CHANNELS)
     audio = audio.set_frame_rate(FRAME_RATE)
 
@@ -43,19 +44,23 @@ def voice_to_text(path_to_file:str):
     rec.AcceptWaveform(audio_binary)
     result = rec.FinalResult()
     text = json.loads(result)["text"]
-    print(text)
+    print("Распознано: ", text)
 
     # TODO
-    # Добавляем пунктуацию (работает через стороннее API, найти другой вариант )
-    # try:
-    #     cased = subprocess.check_output('python3 recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
-    #     raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
-
+    # Добавляем пунктуацию (работает через стороннее API, найти другой вариант)
+    # cased = subprocess.check_output(
+    #     'python3 recasepunc/recasepunc.py predict recasepunc/checkpoint',
+    #     shell=True,
+    #     text=True,
+    #     input=text
+    #     )
     # Записываем результат в файл "data.txt"
-    with open('files/data.txt', 'w') as f:
+    with open(f'files/subtitles_{audio_file.split("/")[-1].split(".")[-2]}.srt', 'w') as f:
         json.dump(text, f, ensure_ascii=False, indent=4)
+
+    return text
 
 
 if __name__ == "__main__":
-    path_to_file = "files/temp_audio.wav"
-    voice_to_text(path_to_file=path_to_file)
+    audio_file = "files/your_video.wav"
+    voice_to_text(audio_file=audio_file)
