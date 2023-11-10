@@ -18,6 +18,15 @@ imageio = {extras = ["ffmpeg"], version = "*"}
 python-magic = "*"
 pillow = "==9.5.0"
 flake8 = "*"
+torchaudio = "*"
+torchdata = "*"
+spacy = "*"
+torchtext = "*"
+portalocker = ">=2.0.0"
+jupyterlab = "*"
+notebook = "*"
+sentencepiece = "*"
+ffmpeg-python = "*"
 
 [dev-packages]
 
