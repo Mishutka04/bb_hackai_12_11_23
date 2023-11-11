@@ -9,9 +9,11 @@ SetLogLevel(0)
 
 
 def voice_to_text(audio_file: str):
+    
+    dir_file_name = f'{audio_file.split("/")[-1].split(".")[-2]}'
 
     try:
-        os.mkdir("files")
+        os.mkdir(f"files/{dir_file_name}")
     except FileExistsError:
         pass
 
@@ -55,12 +57,12 @@ def voice_to_text(audio_file: str):
     #     input=text
     #     )
     # Записываем результат в файл "data.txt"
-    with open(f'files/subtitles_{audio_file.split("/")[-1].split(".")[-2]}.srt', 'w') as f:
+    with open(f'files/{dir_file_name}/subtitles_{dir_file_name}.srt', 'w') as f:
         json.dump(text, f, ensure_ascii=False, indent=4)
 
     return text
 
 
 if __name__ == "__main__":
-    audio_file = "files/0.wav"
+    audio_file = "files/0/0.wav"
     voice_to_text(audio_file=audio_file)

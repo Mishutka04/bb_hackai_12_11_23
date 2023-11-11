@@ -3,9 +3,11 @@ import os
 
 
 def video_to_voice(video_file: str):
+    
+    dir_file_name = f'{video_file.split("/")[-1].split(".")[-2]}'
 
     try:
-        os.mkdir("files")
+        os.mkdir(f"files/{dir_file_name}")
     except FileExistsError:
         pass
 
@@ -14,9 +16,8 @@ def video_to_voice(video_file: str):
 
     # Извлеките аудиодорожку из видео
     audio_clip = video_clip.audio
-
     # Сохраните аудиодорожку в аудиофайл
-    audio_file = f'files/{video_file.split("/")[-1].split(".")[-2]}.wav'
+    audio_file = f'files/{dir_file_name}/{dir_file_name}.wav'
     audio_clip.write_audiofile(audio_file)
 
     # Закройте видео и аудиодорожку

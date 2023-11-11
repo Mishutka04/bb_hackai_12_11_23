@@ -1,7 +1,15 @@
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import os
 
 
 def main(subtitles):
+    
+    dir_file_name = f'{subtitles.split("/")[-2]}'
+
+    try:
+        os.mkdir(f"files/{dir_file_name}")
+    except FileExistsError:
+        pass
     
     with open(subtitles, 'r', encoding='utf-8') as file:
         # Читаем содержимое файла
@@ -30,7 +38,10 @@ def main(subtitles):
     # Вывод результата
     print("Исходный текст:", input_text)
     print("Переведенный текст:", output_text)
+    
+    with open(f'files/{dir_file_name}/transcription_{dir_file_name}.txt', 'w') as f:
+        f.write(output_text)
 
 if __name__ == "__main__":
-    subtitles = "files/subtitles_0.srt"
+    subtitles = "files/0/subtitles_0.srt"
     main(subtitles=subtitles)
