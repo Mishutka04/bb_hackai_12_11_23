@@ -36,7 +36,7 @@ def voice_to_text(audio_file: str):
     audio = audio.set_frame_rate(FRAME_RATE)
 
     # Воспроизводим аудио
-    play(audio)
+    # play(audio)
 
     # Преобразуем аудио в бинарный формат
     audio_binary = audio.raw_data
@@ -62,5 +62,5 @@ def voice_to_text(audio_file: str):
 
 
 if __name__ == "__main__":
-    audio_file = "files/your_video.wav"
+    audio_file = "files/0.wav"
     voice_to_text(audio_file=audio_file)

@@ -28,5 +28,5 @@ def video_to_voice(video_file: str):
 
 
 if __name__ == "__main__":
-    video_file = "files/your_video.mp4"
+    video_file = "files/0.mp4"
     video_to_voice(video_file=video_file)

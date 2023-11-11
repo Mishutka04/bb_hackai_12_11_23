@@ -11,6 +11,10 @@
 pipenv install
 pipenv shell
 ```
+## Модель я синтеза речи с использованием шаблона
+
+<h1 align="center"> <a href="https://drive.google.com/uc?id=1-Vohg3oaS82c0y_tJQx-J8123oWnkkwf" target="_blank">model for uploading.</a>
+<h1 align="center"> <a href="https://drive.usercontent.google.com/download?id=17n0j-o_hUu6Co09lxk8-maJy4RbCVEb-&export=download&authuser=0&confirm=t&uuid=0379de09-3dce-433c-8f2c-e79648dc08bc&at=APZUnTVOm6JgF0Re-GtSxEsMgZ7M:1699709538389" target="_blank">model for uploading.</a>
 
 ## PEP8
 

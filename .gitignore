@@ -209,6 +209,12 @@ model_small
 recasepunc
 /recasepunc
 
+pretrained
+/pretrained
+
+saved_models
+/saved_models
+
 
 
 
