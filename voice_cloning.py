@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import librosa
 from scipy.io.wavfile import write
+import soundfile as sf
 
 
 encoder_weights = Path("pretrained/encoder/saved_models/pretrained.pt")
@@ -31,7 +32,10 @@ print(specs)
 generated_wav = vocoder.infer_waveform(specs[0])
 generated_wav = np.pad(generated_wav, (0, synthesizer.sample_rate), mode="constant")
 
-output_file = "generated_voice.mp3"
-write(output_file, synthesizer.sample_rate, generated_wav)
+filename = "generated_voice.wav" 
+sf.write(filename, generated_wav.astype(np.float32), synthesizer.sample_rate)
+
+# output_file = "generated_voice.mp3"
+# write(output_file, synthesizer.sample_rate, generated_wav)
 
 display(Audio(generated_wav, rate=synthesizer.sample_rate))

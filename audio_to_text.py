@@ -16,7 +16,7 @@ def voice_to_text(audio_file: str):
         pass
 
     # Проверяем наличие модели
-    if not os.path.exists("model"):
+    if not os.path.exists("/media/robot/ESD-USB/model"):
         print("Please download the model from \
             https://alphacephei.com/vosk/models\
                 and unpack as 'model' in the current folder.")
@@ -26,7 +26,7 @@ def voice_to_text(audio_file: str):
     FRAME_RATE = 44100
     CHANNELS = 1
 
-    model = Model("model")
+    model = Model("/media/robot/ESD-USB/model")
     rec = KaldiRecognizer(model, FRAME_RATE)
     rec.SetWords(True)
 
