@@ -10,15 +10,22 @@ SetLogLevel(0)
 
 def voice_to_text(audio_file: str):
     
+    main_dir = "/media/robot/Seagate/hak"
+    
     dir_file_name = f'{audio_file.split("/")[-1].split(".")[-2]}'
 
     try:
-        os.mkdir(f"files/{dir_file_name}")
+        os.mkdir(f"{main_dir}/files/{dir_file_name}")
     except FileExistsError:
         pass
+    
+    file = f'{main_dir}/files/{dir_file_name}/subtitles_{dir_file_name}.srt'
+    if os.path.exists(file):
+        print(f"Файл был распознан ранее {file}")
+        return
 
     # Проверяем наличие модели
-    if not os.path.exists("/media/robot/ESD-USB/model"):
+    if not os.path.exists("/media/robot/Seagate/hak/model"):
         print("Please download the model from \
             https://alphacephei.com/vosk/models\
                 and unpack as 'model' in the current folder.")
@@ -28,7 +35,7 @@ def voice_to_text(audio_file: str):
     FRAME_RATE = 44100
     CHANNELS = 1
 
-    model = Model("/media/robot/ESD-USB/model")
+    model = Model("/media/robot/Seagate/hak/model")
     rec = KaldiRecognizer(model, FRAME_RATE)
     rec.SetWords(True)
 
@@ -57,12 +64,21 @@ def voice_to_text(audio_file: str):
     #     input=text
     #     )
     # Записываем результат в файл "data.txt"
-    with open(f'files/{dir_file_name}/subtitles_{dir_file_name}.srt', 'w') as f:
+    with open(file, 'w') as f:
         json.dump(text, f, ensure_ascii=False, indent=4)
 
     return text
 
 
 if __name__ == "__main__":
-    audio_file = "files/0/0.wav"
-    voice_to_text(audio_file=audio_file)
+    videos = "/media/robot/Seagate/hak/files"
+    for root, dirs, files in os.walk(videos):
+        for file in files:
+            if file.endswith('.wav'):
+                print(os.path.join(root, file))
+                voice_to_text(os.path.join(root, file))
+        # if v.is_file() and v.name.endswith('.wav'):
+        #     print(v.path)
+            # voice_to_text(audio_file==v.path)
+    # audio_file = "files/0/0.wav"
+    # voice_to_text(audio_file=audio_file)

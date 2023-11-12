@@ -12,12 +12,15 @@ import os
 
 def main(in_fpath, transcription):
   
+  main_dir = "/media/robot/Seagate/hak"
+  
   dir_file_name = f'{in_fpath.split("/")[-1].split(".")[-2]}'
-
   try:
-      os.mkdir(f"files/{dir_file_name}/voice/")
+      os.mkdir(f"{main_dir}/files/{dir_file_name}/voice/")
   except FileExistsError:
       pass
+  except FileNotFoundError:
+    return
       
   encoder_weights = Path("pretrained/encoder/saved_models/pretrained.pt")
   vocoder_weights = Path("pretrained/vocoder/saved_models/pretrained/pretrained.pt")
@@ -59,9 +62,14 @@ def main(in_fpath, transcription):
       
     
     count+=1
-    filename = f"files/{dir_file_name}/voice/voice_{count}.wav"
-      
-    generated_wav = vocoder.infer_waveform(specs[0])
+    filename = f"{main_dir}/files/{dir_file_name}/voice/voice_{count}.wav"
+    if os.path.exists(filename):
+        print(f"Уже обработан {filename}")
+        return
+    try:
+      generated_wav = vocoder.infer_waveform(specs[0])
+    except ValueError:
+      return
     generated_wav = np.pad(generated_wav, (0, synthesizer.sample_rate), mode="constant")
 
     # filename = "generated_voice.wav"
@@ -74,6 +82,35 @@ def main(in_fpath, transcription):
 
 
 if __name__ == "__main__":
-    in_fpath = "files/0/0.wav"
-    transcription = "files/0/transcription_0.txt"
-    main(in_fpath=in_fpath, transcription=transcription)
+  videos = "/media/robot/Seagate/hak/files"
+  fi_list=[]
+  
+  for root, dirs, files in os.walk(videos):
+      for file in files:
+        print(root)
+        fi=list()
+        for f in os.scandir(root):
+          if f.is_file() and f.name.endswith('.wav'):
+            # print(os.path.join(root, f))
+            fi.append(os.path.join(root, f))
+          elif f.is_file() and f.name.endswith('.txt'):
+            # print(os.path.join(root, f))
+            fi.append(os.path.join(root, f))
+
+          if len(fi)<=1:
+            pass
+          else:
+            fi_list.append(fi)
+  print(fi_list)
+  for i in fi_list:
+    print(i[0], i[1])
+    main(i[0], i[1])
+        # print(root)
+          # if file.endswith('.wav'):# and file.endswith('.txt'):
+          #   print(os.path.join(root, file))
+          # if file.endswith('.txt'):
+          #   print(os.path.join(root, file))
+              # main(os.path.join(root, file))
+    # in_fpath = "files/0/0.wav"
+    # transcription = "files/0/transcription_0.txt"
+    # main(in_fpath=in_fpath, transcription=transcription)
