@@ -24,7 +24,7 @@ def video_to_voice(video_file: str):
     # Извлеките аудиодорожку из видео
     audio_clip = video_clip.audio
     # Сохраните аудиодорожку в аудиофайл
-    audio_file = audio_file
+    # audio_file = audio_file
     audio_clip.write_audiofile(audio_file)
 
     # Закройте видео и аудиодорожку
@@ -37,9 +37,10 @@ def video_to_voice(video_file: str):
 
 if __name__ == "__main__":
     videos = "/media/robot/Seagate/hak/video/"
-    for v in os.scandir(videos):
+    for v in os.scandir(videos[0]):
         if v.is_file() and v.name.endswith('.mp4'):
             video_to_voice(video_file=v.path)
+            
                 
     # video_file = "files/0.mp4"
     # video_to_voice(video_file=video_file)
